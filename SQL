@@ -1,0 +1,183 @@
+
+
+
+
+O que é a linguagem SQL?
+O SQL (Structure Query Language) é uma liguaguem de comunicação com banco de dados relacionais. Dominar o SQL é fundamental para lidar com banco de dados relacionais.
+
+A estrutura do SQL é muito simples e até intuitivas. O SQL serve para consulta, controle e manipulação de dados.
+
+O SQL estão dividos em cinco grupos. Sendo que cada um desses subconjuntos foca em um conjunito de intrusções
+
+DDL
+DQL
+DML
+DCL
+DTL ou TCL
+
+
+DDL - Linguagem de Definição de Dados
+A DDL (Data Definition Language) são os comandos de definição do banco de dados. São eles: 
+
+CREATE
+DROP
+ALTER
+TRUNCATE
+COMMENT
+RENAME
+
+
+CREATE
+O comando CREATE cria objetos. No exemplo, estamos criando uma tabela nova de aluno com uma coluna id.
+
+CREATE TABLE aluno (id integer);
+
+
+
+DROP
+O comando DROP exclui objetos do banco de dados. Essa remoção de tabelas deleta todas as linhas, privilégios e índices. O drop não necessita de nenhuma cláusula adicional. No exemplo, estamos executando drop na tabela aluno.
+
+DROP TABLE aluno;
+
+
+
+ALTER
+O ALTER altera objetos já existentes, podendo modificar, excluir ou adicionar. No exemplo, alteramos a tabela aluno adicionando uma nova coluna nome. 
+
+ALTER TABLE aluno ADD COLUMN nome;
+
+
+
+TRUNCATE
+O TRUNCATE exclui todo os dados da tabela deixando ela como o valor inicial e assim limpando também os espaços destinados aos dados da tabela. É uma operação que não pode ser revertida. No exemplo, estamos executando truncate na tabela aluno.
+
+TRUNCATE TABLE aluno;
+
+
+
+COMMENT
+O COMMENT é uma função usada para fazer um comentário no SQL, explicativo ou impedir a execução de uma linha de SQL. Existem duas opções de COMMENT: 
+
+(--) dois traços ou uma barra, um asterisco, 
+
+(/* */) um asteriosco e uma barras 
+
+
+
+(--)dois traços, a linha que estiver posterior aos dois traços será comentada e não será executada. No exemplo a abaixo:
+
+-- Essa linha é um comentario
+
+
+
+(/* */) um asteriosco e barras, o que estiver dentro bloco será comentario e não será executado. No exemplo abaixo:
+
+/*
+
+tudo que estiver aqui será comentario no SQL
+
+*/
+
+
+
+RENAME
+O RENAME é o comando para renomear objetos. No comando é preciso citar obejto que será remoneado e qual será no novo nome. No exemplo, estamos renomeando a tabela aluno para aluno_alterado.
+
+RENAME TABLE aluno TO aluno_alterado;
+
+
+
+DQL - Linguagem de Consulta de Dados
+A DQL (Data Query Language) é o comando para o consultar aos dados armazenados. Ele é composto, por apenas o comando Select. Em alguns materiais acadêmicos essa instrução aparece incorporada no conjunto DML.
+
+
+
+SELECT
+Esse comando é o mais importantes do SQL. Em um modo geral, o Select recupera dados de um banco de dados relacional. O comando que tem a possibilidade de ser estruturado de forma a fazer consultas mais simples ou mais complexas. No exemplo, estamos consultando a tabela aluno, trazendo apenas a coluna nome.
+
+SELECT nome FROM aluno;
+
+
+
+DML - Linguagem de Manipulação de Dados
+A DML (Data Manipulation Language) são os comandos de manipulação dos dados. São eles:
+
+INSERT
+UPDATE
+DELETE
+
+
+INSERT
+O Comando INSERT é usando para insere dados a uma ou mais tabelas. Na sua estrutura, deve ser acompanhada de INTO. No exemplo, estamos inserindo uma linha na tabela aluno.
+
+INSERT INTO aluno (id, nome) VALUES (1, Joana);
+
+
+
+UPDATE
+O Comando UPDATE atualiza os dados existentes em uma ou mais tabelas. Na sua estrutura, deve ser acompanhada de SET e pode ser usado com a cláusula WHERE. Caso não seja utilizado o WHERE, atualiza todos os registros. No exemplo, estamos atualizando o nome do aluno com o id 1.
+
+UPDATE aluno
+
+SET nome = 'João'
+
+WHERE id = 1;
+
+
+
+DELETE
+O comando DELETE exclui o registro de uma tabela ou mais. Caso não seja utilizado o WHERE, todos os registros são removidos. No exemplo, estamos deletando o aluno com id 1 da tabela aluno.
+
+DELETE FROM aluno 
+
+WHERE id = 1;
+
+ 
+
+DCL - Linguagem de Controle de Dados
+A DCL (Data Control Language) controla o acesso aos dados, concedendo privilégio de acesso, quanto retirando a permissão do usuário.
+
+
+
+GRANT
+O comando GRANT fornece a determinado usuario o privilégio de acesso dentro do banco de dados. No exemplo, estamos permitindo o usuario professor consultar os dados da tabela aluno.
+
+GRANT SELECT ON aluno TO professor;
+
+
+
+REVOKE
+O comando REVOKE retira os privilégios de acesso dentro do banco de dados. No exemplo, estamos revogando/removendo a permisão do usuario professor consultar os dados da tabela aluno.
+
+REVOKE SELECT ON aluno FROM professor;
+
+
+
+DTL ou TCL - Linguagem de Transação de Dados
+A DTL ou TCL (Data Transaction Language) é um subconjunto do SQL para transação de dados. A DTL envolve gerenciamento e controle de transações. 
+
+
+
+BEGIN/SET TRANSACTION
+Tanto o comando BEGIN TRANSACTION quanto o SET TRANSACTION indicam o início de uma transação. Devem ser usados imediatamente no começo do código, registrando que tudo que vem abaixo faz parte da mesma transação. A diferença entre BEGIN TRANSACTION e SET TRANSACTION está que na segunda pode-se atribuir especificações a respeito daquela transação.
+
+
+
+COMMIT
+Se a instrução BEGIN/ SET TRANSACTION inicia uma transação, a COMMIT a finaliza. O comando indica o fim de cada transação, salvando o que foi feito na transação atual. O COMMIT aparece no final daquela transação em específico.
+
+No exemplo de início e fim de uma transação, usando os comandos BEGIN TRANSACTION e COMMIT.
+
+BEGIN TRANSACTION
+
+DELETE FROM aluno WHERE id = 1;
+
+COMMIT;
+
+
+ROLLBACK
+O comando Rollback reverte uma transação. Na prática, restaura o banco de dados desde a última vez que o comando COMMIT foi aplicado.
+
+
+SAVEPOINT
+O SAVEPOINT define um ponto de salvamento dentro de uma transação, funciona como um “ponto de segurança”. Tudo que é anterior a ele não pode ser descartado com o comando ROLLBACK, apenas o que vem após. 
